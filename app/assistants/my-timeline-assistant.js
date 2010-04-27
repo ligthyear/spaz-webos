@@ -225,6 +225,7 @@ MyTimelineAssistant.prototype.initTimeline = function() {
    		itemTemplate: "my-timeline/itemTemplate",
 		listTemplate: "my-timeline/listTemplate",
 		swipeToDelete: false,
+		formatters: { created_at: sch.getRelativeTime}
    		}, this.timelineModel);
 	
 	var thisA = this;

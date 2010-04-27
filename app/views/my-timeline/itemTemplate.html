@@ -9,8 +9,8 @@
 					#{user.screen_name}
 					<!--<div class="protected-icon"></div>-->
 				</div>
-				<div class="meta" data-status-id="'+d.id+'">
-					<span class="date">#{created_at}</span>
+				<div class="meta">
+					<span class="">#{created_atFormatted}</span>
 				</div>
 			</div>
 			<div class="text">
@@ -18,22 +18,4 @@
 			</div>
 		</div>
 	</div>
-</div> 
-
-<!--
-	html += '<div class="timeline-entry';
-	if (!d.not_new) {
-		html += ' new';
-	}
-	if (d.SC_is_reply) {
-		html += ' reply';
-	}
-	html += '" data-status-id="'+d.id+'" data-user-id="'+d.user.id+'" data-user-screen_name="'+d.user.screen_name+'" data-timestamp="'+d.SC_created_at_unixtime+'">'
-
-	+ '	<div class="status">'
-	+ '	 	<div class="text">'
-	+ '			'+d.text+''
-	+ '		</div>'
-	+ '	</div>'
-	+ '</div>';
-	-->
+</div>
