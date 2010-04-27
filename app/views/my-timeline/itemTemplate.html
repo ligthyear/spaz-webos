@@ -1,3 +1,39 @@
-<div class="palm-row" x-mojo-tap-highlight="momentary">
-   <div class="title left">#{user.screen_name}<span class="year">#{-text}</span></div>
+<div class="timeline-entry palm-row" x-mojo-tap-highlight="momentary">
+	<div class="palm-row-wrapper">
+		<div class="user">
+			<div class="user-img rounded-user-image" style="background-image:url(#{user.profile_image_url})"></div>
+		</div>
+		<div class="status">
+			<div class="meta-wrapper">
+				<div class="screen-name">
+					#{user.screen_name}
+					<!--<div class="protected-icon"></div>-->
+				</div>
+				<div class="meta" data-status-id="'+d.id+'">
+					<span class="date">#{created_at}</span>
+				</div>
+			</div>
+			<div class="text">
+				#{-text}
+			</div>
+		</div>
+	</div>
 </div> 
+
+<!--
+	html += '<div class="timeline-entry';
+	if (!d.not_new) {
+		html += ' new';
+	}
+	if (d.SC_is_reply) {
+		html += ' reply';
+	}
+	html += '" data-status-id="'+d.id+'" data-user-id="'+d.user.id+'" data-user-screen_name="'+d.user.screen_name+'" data-timestamp="'+d.SC_created_at_unixtime+'">'
+
+	+ '	<div class="status">'
+	+ '	 	<div class="text">'
+	+ '			'+d.text+''
+	+ '		</div>'
+	+ '	</div>'
+	+ '</div>';
+	-->
