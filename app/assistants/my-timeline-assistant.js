@@ -221,14 +221,18 @@ MyTimelineAssistant.prototype.initTimeline = function() {
 	sch.debug('initializing Timeline in assistant');
   // TODO: Timeline list widget
 	this.timelineModel = {items: []};
-  // this.controller.setupWidget("list-id", {}, this.timelineModel);
+   this.controller.setupWidget("my-timeline", {
+   		itemTemplate: "my-timeline/itemTemplate",
+		listTemplate: "my-timeline/listTemplate",
+		swipeToDelete: false,
+   		}, this.timelineModel);
 	
 	var thisA = this;
 	/*
 		set up the combined "my" timeline
 	*/
 	this.mytl   = new SpazTimeline({
-		'timeline_container_selector' :'#my-timeline',
+		'timeline_container_selector' :'',
 		'entry_relative_time_selector':'span.date',
 		
 		'success_event':'new_combined_timeline_data',
@@ -268,6 +272,7 @@ MyTimelineAssistant.prototype.initTimeline = function() {
 			};
 			
 			thisA.mytl.addItems(no_dupes);
+			thisA.controller.modelChanged(thisA.timelineModel)
 
       // TODO: Timeline list widget
       sc.app.Tweets.bucket.all(function(tweets) {
@@ -370,6 +375,8 @@ MyTimelineAssistant.prototype.initTimeline = function() {
 			thisA.displayErrorInfo(err_msg, error_array);
 		},
 		'renderer': function(obj) {
+			thisA.timelineModel.items.push(obj);
+			return '';
 			try {
 				if (obj.SC_is_dm) {
 					return sc.app.tpl.parseTemplate('dm', obj);
@@ -417,6 +424,8 @@ MyTimelineAssistant.prototype.loadTimelineCache = function() {
 	var thisA = this;
 
 	this._loadTimelineCache = function() {
+		// FIXME: disabled until we have the widgeting in place
+		return;
 		var data = TempCache.load('mytimelinecache');
 
 		if (data !== null) {
@@ -424,7 +433,7 @@ MyTimelineAssistant.prototype.loadTimelineCache = function() {
 			thisA.twit.setLastId(SPAZCORE_SECTION_REPLIES, data[SPAZCORE_SECTION_REPLIES + '_lastid']);
 			thisA.twit.setLastId(SPAZCORE_SECTION_DMS,     data[SPAZCORE_SECTION_DMS     + '_lastid']);
 
-			document.getElementById('my-timeline').innerHTML = data.tweets_html;
+			//document.getElementById('my-timeline').innerHTML = data.tweets_html;
 			sch.markAllAsRead('#my-timeline div.timeline-entry');
 		}
 		sch.unlisten(document, 'temp_cache_load_db_success', this._loadTimelineCache);
@@ -447,7 +456,7 @@ MyTimelineAssistant.prototype.loadTimelineCache = function() {
 };
 
 MyTimelineAssistant.prototype.saveTimelineCache = function() {
-	
+	return;
 	var tweetsModel_html = document.getElementById('my-timeline').innerHTML;
 	
 	sch.dump(tweetsModel_html);
