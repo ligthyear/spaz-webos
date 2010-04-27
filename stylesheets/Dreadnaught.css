@@ -157,8 +157,8 @@ div.timeline-entry {
 		}
 	
 	div.timeline-entry .status {
-		margin-left:64px;
-		margin-top:0px;
+		width: 230px;
+		height: auto;
 	}
 	
 		div.timeline-entry .status .meta-wrapper {
