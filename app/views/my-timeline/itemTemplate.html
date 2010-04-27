@@ -1,4 +1,4 @@
-<div class="timeline-entry palm-row" x-mojo-tap-highlight="momentary">
+<div class="timeline-entry palm-row #{classesFormatted}" x-mojo-tap-highlight="momentary">
 	<div class="palm-row-wrapper">
 		<div class="user">
 			<div class="user-img rounded-user-image" style="background-image:url(#{user.profile_image_url})"></div>
@@ -7,14 +7,14 @@
 			<div class="meta-wrapper">
 				<div class="screen-name">
 					#{user.screen_name}
-					<!--<div class="protected-icon"></div>-->
+					<div class="#{-user_statusFormatted}"></div>
 				</div>
 				<div class="meta">
-					<span class="">#{created_atFormatted}</span>
+					<span>#{created_atFormatted}</span>
 				</div>
 			</div>
 			<div class="text">
-				#{-text}
+				#{-retweeted_statusFormatted} #{-text}
 			</div>
 		</div>
 	</div>

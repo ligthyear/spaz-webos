@@ -225,7 +225,29 @@ MyTimelineAssistant.prototype.initTimeline = function() {
    		itemTemplate: "my-timeline/itemTemplate",
 		listTemplate: "my-timeline/listTemplate",
 		swipeToDelete: false,
-		formatters: { created_at: sch.getRelativeTime}
+		formatters: {
+			created_at: sch.getRelativeTime,
+			retweeted_status: function(retweet, obj){
+				if (obj.retweeted_status) {
+					obj.text = obj.retweeted_status.text;	
+					return "<span class='retweet'>" +
+							obj.retweeted_status.user.screen_name + "</span>";
+				}
+			},
+			user_status: function(variable, obj) {
+				return obj.user && obj.user["protected"] ? "protected-icon" : "";
+			},
+			classes: function(variable, obj) {
+				var res ="";
+				if (!obj.not_new)
+					res +=" new";
+				if (obj.SC_is_reply)
+					res +=" reply";
+				if (obj.SC_is_dm)
+					res +=" dm";
+				return res;
+			}
+		}
    		}, this.timelineModel);
 	
 	var thisA = this;
@@ -376,21 +398,7 @@ MyTimelineAssistant.prototype.initTimeline = function() {
 			thisA.displayErrorInfo(err_msg, error_array);
 		},
 		'renderer': function(obj) {
-			thisA.timelineModel.items.push(obj);
-			return '';
-			try {
-				if (obj.SC_is_dm) {
-					return sc.app.tpl.parseTemplate('dm', obj);
-				} else {
-					return sc.app.tpl.parseTemplate('tweet', obj);
-				}				
-			} catch(err) {
-				sch.error("There was an error rendering the object: "+sch.enJSON(obj));
-				sch.error("Error:"+sch.enJSON(err));
-				return '';
-			}
-			
-			
+			thisA.timelineModel.items.push(obj);			
 		}
 	});
 	
